@@ -9,11 +9,18 @@ export const routes: Routes = [
     {
         path: '', // <your-domain>/
         component: NoTaskComponent,
+        // redirectTo: '/users/u1',
+        // pathMatch: 'full'
     },
     { 
         path: 'users/:userId', // <your-domain>/users/<uid>
         component: UserTasksComponent,
         children: [
+            {
+                path: '', // <your-domain>/users/<uid>/
+                redirectTo: 'tasks',
+                pathMatch: 'prefix'
+            },
             {
                 path: 'tasks', // <your-domain>/users/<uid>/tasks
                 component: TasksComponent,
