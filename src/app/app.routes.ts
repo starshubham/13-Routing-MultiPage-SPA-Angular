@@ -2,7 +2,6 @@ import { CanMatchFn, RedirectCommand, Route, Router, Routes, UrlSegment } from "
 import { NoTaskComponent } from "./tasks/no-task/no-task.component";
 import { resolveTitle, resolveUserName, UserTasksComponent } from "./users/user-tasks/user-tasks.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
-import { routes as userRoutes } from "./users/users.routes";
 import { inject } from "@angular/core";
 
 const dummyCanMatch: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
@@ -25,7 +24,7 @@ export const routes: Routes = [
     { 
         path: 'users/:userId', // <your-domain>/users/<uid>
         component: UserTasksComponent,
-        children: userRoutes,
+        loadChildren: () => import('./users/users.routes').then(mod => mod.routes),
         canMatch: [dummyCanMatch],
         data: {
             message: 'Hello!'
